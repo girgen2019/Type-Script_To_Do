@@ -103,25 +103,23 @@ interface User {
     }
   }
   function handleTodoChange(this: HTMLInputElement) {
-    const parent = this.parentElement
-    if(parent){
+    const parent = this.parentElement;
+    if (parent) {
       const todoId = parent.dataset.id;
       const completed = this.checked;
       todoId && toggleTodoComplete(todoId, completed);
-
     }
   }
   function handleClose(this: HTMLSpanElement) {
-    const parent = this.parentElement
-    if(parent){
+    const parent = this.parentElement;
+    if (parent) {
       const todoId = parent.dataset.id;
       todoId && deleteTodo(todoId);
-
     }
   }
 
   // Async logic
-  async function getAllTodos() {
+  async function getAllTodos(): Promise<Todo[]> {
     try {
       const response = await fetch(
         'https://jsonplaceholder.typicode.com/todos?_limit=15'
@@ -130,12 +128,12 @@ interface User {
 
       return data;
     } catch (error) {
-      if(error instanceof Error)
-      alertError(error);
+      if (error instanceof Error) alertError(error);
+      return [];
     }
   }
 
-  async function getAllUsers() {
+  async function getAllUsers(): Promise<User[]> {
     try {
       const response = await fetch(
         'https://jsonplaceholder.typicode.com/users?_limit=5'
@@ -144,8 +142,8 @@ interface User {
 
       return data;
     } catch (error) {
-      if(error instanceof Error)
-      alertError(error);
+      if (error instanceof Error) alertError(error);
+      return []
     }
   }
 
@@ -166,8 +164,7 @@ interface User {
 
       printTodo(newTodo);
     } catch (error) {
-      if(error instanceof Error)
-      alertError(error);
+      if (error instanceof Error) alertError(error);
     }
   }
 
@@ -188,8 +185,7 @@ interface User {
         throw new Error('Failed to connect with the server! Please try later.');
       }
     } catch (error) {
-      if(error instanceof Error)
-      alertError(error);
+      if (error instanceof Error) alertError(error);
     }
   }
 
@@ -211,8 +207,7 @@ interface User {
         throw new Error('Failed to connect with the server! Please try later.');
       }
     } catch (error) {
-      if(error instanceof Error)
-      alertError(error);
+      if (error instanceof Error) alertError(error);
     }
   }
 })();
